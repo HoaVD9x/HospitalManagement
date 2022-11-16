@@ -259,13 +259,13 @@ public class Controller extends HttpServlet {
 
     private void listDashboard(HttpServletRequest request,HttpServletResponse response)
         throws SQLException, IOException, ServletException {
-    //  int sumPatient = patientDao.selectAllPatient().size();
-     // int sumDoctor = doctorDao.selectAll().size();
+     int sumPatient = patientDao.selectAllPatient().size();
+      int sumDoctor = doctorDao.selectAll().size();
 
         List<Patient> patientAddDoctor = patientDao.selectAllPatientAddDoctor();
         request.setAttribute("listDashboard",patientAddDoctor);
-       // request.setAttribute("sumDoctor",sumDoctor);
-        //request.setAttribute("sumPatient",sumPatient);
+        request.setAttribute("sumDoctor",sumDoctor);
+        request.setAttribute("sumPatient",sumPatient);
         RequestDispatcher dispatcher = request.getRequestDispatcher("template/listDashboard.jsp");
         dispatcher.forward(request, response);
 

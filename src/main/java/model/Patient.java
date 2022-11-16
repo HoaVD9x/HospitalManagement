@@ -1,8 +1,12 @@
 package model;
 
-import dao.DoctorDao;
+import Utils.HibernateUtil;
+import org.hibernate.Session;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 
 @Entity
@@ -48,9 +52,14 @@ public class Patient {
         return doctor;
     }
 
-    public void setDoctor(String doctor) {
-
-        this.doctor.setLastname(doctor);
+    public Doctor setDoctor(String doctor) {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Doctor>  criteriaQuery = builder.createQuery(Doctor.class);
+            Root<Doctor>  root = criteriaQuery.from(Doctor.class);
+            criteriaQuery.select(root).where(builder.equal(root.get("lastname"),doctor));
+            return session.createQuery(criteriaQuery).getSingleResult();
+        }
     }
 
     public Patient(long patientId, String firstName, String lastName, LocalDate dateOfBirth, String gender, String address, String email, double phoneNumber, LocalDate joiningDate) {
