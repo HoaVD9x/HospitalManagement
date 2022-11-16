@@ -14,12 +14,12 @@
 
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"></jsp:include>
+
 	<div class="container">
 
 	<h2>User Register Form</h2>
 	<div class="col-md-6 col-md-offset-3">
-			<div class="alert alert-success center" role="alert">
+			<div class="" >
 				<p>${NOTIFICATION}</p>
 			</div>
 			
@@ -27,7 +27,7 @@
 
 					<div class="form-group">
 						<label for="uname">First Name:</label> <input type="text"
-							class="form-control" id="uname" placeholder="First Name"
+							class="form-control" id="username" placeholder="First Name"
 							name="firstName" required>
 					</div>
 
@@ -36,6 +36,11 @@
 							class="form-control" id="uname" placeholder="last Name"
 							name="lastName" required>
 					</div>
+
+					<div class="form-group">
+                    	<label for="uname">Email :</label>
+                    	<input type="text" class="form-control" id="userName" placeholder="User Name" name="email" required>
+                    					</div>
 
 					<div class="form-group">
 						<label for="uname">User Name:</label> <input type="text"
@@ -54,6 +59,12 @@
 				</form>
 			</div>
 		</div>
-	<jsp:include page="../common/footer.jsp"></jsp:include>
+		<div class="container signin ">
+        			<p>
+        				Already have an account ? <a
+        					href="<%=request.getContextPath()%>/login">Sign in</a>.
+        			</p>
+        		</div>
+
 </body>
 </html>

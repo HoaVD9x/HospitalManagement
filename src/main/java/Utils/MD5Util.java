@@ -1,4 +1,4 @@
-package net.javaguides.todoapp.utils;
+package Utils;
 
 import jakarta.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;

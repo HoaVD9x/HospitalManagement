@@ -1,7 +1,8 @@
-package net.javaguides.todoapp.utils;
+package Utils;
 
-import net.javaguides.todoapp.model.Todo;
-import net.javaguides.todoapp.model.User;
+import model.Doctor;
+import model.Patient;
+import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -21,7 +22,7 @@ public class HibernateUtil {
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "org.mariadb.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mariadb://mariadb-tutorial.clicssmtjld8.ap-northeast-2.rds.amazonaws.com/todo");
+                settings.put(Environment.URL, "jdbc:mariadb://mariadb-tutorial.clicssmtjld8.ap-northeast-2.rds.amazonaws.com/HospitalManaByHoa");
                 settings.put(Environment.USER, "administrator");
                 settings.put(Environment.PASS, "6i6Z&9ooKjFK");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MariaDB103Dialect");
@@ -29,7 +30,9 @@ public class HibernateUtil {
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 settings.put(Environment.HBM2DDL_AUTO, "update");
                 configuration.setProperties(settings);
-                configuration.addAnnotatedClass(Todo.class);
+                configuration.addAnnotatedClass(Doctor.class);
+                configuration.addAnnotatedClass(Patient.class);
+               // configuration.addAnnotatedClass(Doctor.class);
                 configuration.addAnnotatedClass(User.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
