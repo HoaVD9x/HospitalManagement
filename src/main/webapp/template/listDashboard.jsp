@@ -76,12 +76,12 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="listDashboard" items="patientAddDoctor">
+        <c:forEach var="listDashboard" items="${patientAddDoctor}">
             <tr>
-                <td><c:out value="${listDashboard}" /></td>
-                <td><c:out value="${listDashboard}" /> </td>
-                <td><c:out value="${listDashboard}" /></td>
-                <th><c:out value="${listDashboard}" /></th>
+                <td><c:out value="${patientAddDoctor}" /></td>
+                <td><c:out value="${patientAddDoctor}" /> </td>
+                <td><c:out value="${patientAddDoctor}" /></td>
+                <th><c:out value="${patientAddDoctor}" /></th>
                 <th>Detail</th>
     
             </tr>

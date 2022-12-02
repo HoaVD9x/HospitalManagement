@@ -10,7 +10,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PatientIplm  implements PatientDao {
 
@@ -80,7 +82,7 @@ public class PatientIplm  implements PatientDao {
 
         if (patient != null) {
             session.delete(patient);
-            if (!transaction.isActive())
+            if (transaction!= null&& transaction.isActive())
                 transaction.commit();
             return true;
 
@@ -94,10 +96,24 @@ public class PatientIplm  implements PatientDao {
         if (patient1 != null) {
             session.merge(patient) ;
             if (!transaction.isActive())
-                transaction = session.beginTransaction();
+
             transaction.commit();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void removeDoctorByID(int id) throws SQLException {
+        List<Patient> patientList = new ArrayList<>();
+        CriteriaQuery<Patient> criteriaQuery = builder.createQuery(Patient.class);
+        Root<Patient> root = criteriaQuery.from(Patient.class);
+        criteriaQuery.select(root).where(builder.equal(root.get("doctor"),id));
+    patientList = session.createQuery(criteriaQuery).getResultList();
+    patientList.stream().forEach(patient -> patient.setDoctor(null));
+    patientList.forEach(patient -> this.insertPatient(patient));
+
+
+
     }
 }

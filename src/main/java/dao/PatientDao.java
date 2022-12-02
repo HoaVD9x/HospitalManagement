@@ -23,4 +23,6 @@ boolean deletePatient(int patientId) throws SQLException;
 
 boolean updatePatient(Patient patient) throws SQLException;
 
+void removeDoctorByID(int id) throws SQLException;
+
 }

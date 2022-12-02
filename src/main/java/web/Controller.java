@@ -190,8 +190,8 @@ public class Controller extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("doctorId"));
+        patientDao.removeDoctorByID(id);
         doctorDao.deleteDoctor(id);
-
         response.sendRedirect("list");
     }
     private void listPatient ( HttpServletRequest request, HttpServletResponse response)
@@ -237,6 +237,7 @@ public class Controller extends HttpServlet {
     private  void deletePatient ( HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         int patientId = Integer.parseInt(request.getParameter("patientId"));
+
         patientDao.deletePatient(patientId);
         response.sendRedirect("listPatient");
     }
@@ -301,8 +302,9 @@ public class Controller extends HttpServlet {
         String doctorLastname = request.getParameter("doctorLastName");
 
         Patient updatePatientWithDoctor =  patientDao.selectPatientByLastName(patientLastName);
-        updatePatientWithDoctor.setDoctor(doctorLastname);
-        patientDao.insertPatientWithDoctor(updatePatientWithDoctor);
+        Doctor insertDoctor = doctorDao.selectDoctorByLastName(doctorLastname);
+        updatePatientWithDoctor.setDoctor(insertDoctor);
+        patientDao.updatePatient(updatePatientWithDoctor);
         response.sendRedirect("listDashboard");
         RequestDispatcher dispatcher = request.getRequestDispatcher("template/listDashboard.jsp");
         dispatcher.forward(request, response);
